@@ -13,6 +13,7 @@ import '@polymer/iron-icons/hardware-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
 import '@polymer/iron-icons/social-icons.js';
 import '@polymer/iron-icons/notification-icons.js';
+import '@polymer/iron-ajax/iron-ajax.js';
 import './shared-styles.js';
 
 class EventDetail extends PolymerElement {
@@ -31,12 +32,23 @@ class EventDetail extends PolymerElement {
         pattern="/:item"
         data="{{routeData}}"></app-route>
 
+    <iron-ajax auto url="ticketmaster-api.json" handle-as="json"
+        last-response="{{api}}"
+        on-response="_handleDatasApiResponse"></iron-ajax>
+
+    <iron-ajax 
+        id="detailsRequest" 
+        method="GET"
+        url="https://app.ticketmaster.com/discovery/v2/events/G5vVZfUnIKxw8.json?apikey=zLZ9MOeps4OGQhuhAHYPXPtKCVtsO5gX"
+        handle-as="json"
+        last-response="{{details}}"></iron-ajax>
+
     <paper-card image="https://s1.ticketm.net/dam/a/443/c27ce107-a884-4ebe-be08-2d192a775443_635551_TABLET_LANDSCAPE_16_9.jpg">
       <div class="card-content">
         <div class="cafe-header">Cafe Basilico
           <div class="cafe-location cafe-light">
             <iron-icon icon="communication:location-on"></iron-icon>
-
+{{details.name}}
             <span>250ft</span>
           </div>
         </div>
@@ -61,6 +73,36 @@ class EventDetail extends PolymerElement {
       </div>-->
     `;
   }
+    
+    static get properties() { return {
+    api: {
+      type: Object
+    },
+    routeData: {
+      type: Object
+    }
+    }}
+    
+    ready() {
+        super.ready();
+    }
+    
+    _handleDatasApiResponse(event) {
+        this.$.detailsRequest.url = this.api.baseUrl + this.api.chemins.detail;
+        this.$.detailsRequest.url += this.routeData.item + ".json?apikey=" + this.api.key;
+        this.$.detailsRequest.generateRequest();
+    }
+    
 }
 
 window.customElements.define('event-detail', EventDetail);
+/* 
+name
+link url
+image
+sales
+
+date heure
+pricerange
+classification -> segment genre
+*/

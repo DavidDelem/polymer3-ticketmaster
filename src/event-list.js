@@ -16,6 +16,11 @@ class EventList extends PolymerElement {
         }
       </style>
 
+
+    <iron-ajax auto url="ticketmaster-api.json" handle-as="json"
+        last-response="{{api}}"
+        on-response="_handleDatasApiResponse"></iron-ajax>
+
       <div class="card">
         <div class="circle">1</div>
         <h1>List</h1>
@@ -24,6 +29,23 @@ class EventList extends PolymerElement {
       </div>
     `;
   }
+    
+        static get properties() { return {
+    api: {
+      type: Object
+    },
+    routeData: {
+      type: Object
+    }
+    }}
+    
+    ready() {
+        super.ready();
+    }
+    
+    _handleDatasApiResponse(event) {
+
+    }
 }
 
 window.customElements.define('event-list', EventList);

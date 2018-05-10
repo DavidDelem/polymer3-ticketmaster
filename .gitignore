@@ -1,3 +1,3 @@
 build/
 node_modules/
-src/ticketmaster-api.json
+ticketmaster-api.json
