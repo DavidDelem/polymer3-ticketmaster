@@ -40,6 +40,83 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         color: #212121;
         font-size: 22px;
       }
+
+      .paragraphe {
+        margin-top: 8px;
+margin-bottom: 8px;
+      }
+
+      .paragraphe-small {
+        
+      }
+
+        .well {
+            background: #e0e0e0;
+            border-radius: 5px;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            color: #848484;
+cursor: pointer;
+    transition: all .3s ease-out;
+        }
+.card-content .content-elem {
+    margin-top: 10px;
+}
+.card-content  iron-icon {
+    position: relative;
+    top: -1px;
+    margin-right: 8px;
+}
+
+.card-actions > div {
+    padding-left: 2px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.btn-tickets {
+margin-top: 25px;
+}
+
+.btn-tickets paper-button {
+width: 100%;
+margin: 0;
+}
+
+.btn-tickets paper-button iron-icon {
+margin-right: 4px;
+position: relative;
+top: -1px;
+}
+
+h3 {
+margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+paper-button a {
+    color: #fff;
+    text-decoration: none;
+padding-left: 5px;
+padding-right: 5px;
+}
+
+        .well:hover {
+    background: #d2d2d2;
+    transition: all .3s ease-out;
+}
+
+.well > * {
+display: inline-block;
+}
+
+paper-button.pink-button {
+   background-color: #d0006f;
+color: #fff;
+}
     </style>
   </template>
 </dom-module>`;

@@ -19,6 +19,8 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/social-icons.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 
@@ -35,7 +37,7 @@ class MyApp extends PolymerElement {
     return html`
       <style>
         :host {
-          --app-primary-color: #4285f4;
+          --app-primary-color: #009cde;
           --app-secondary-color: black;
 
           display: block;
@@ -70,6 +72,10 @@ class MyApp extends PolymerElement {
           color: black;
           font-weight: bold;
         }
+
+        #main-icon {
+            margin-right: 8px;
+        }
       </style>
 
       <app-location route="{{route}}">
@@ -85,8 +91,8 @@ class MyApp extends PolymerElement {
 
           <app-header slot="header" condenses="" reveals="" effects="waterfall">
             <app-toolbar>
-              <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">My App</div>
+                <iron-icon id="main-icon" icon="social:public"></iron-icon>
+                <div main-title="">Events finder</div>
             </app-toolbar>
           </app-header>
 

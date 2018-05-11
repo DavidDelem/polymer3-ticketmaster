@@ -8,6 +8,7 @@ import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/communication-icons.js';
 import '@polymer/iron-icons/hardware-icons.js';
 import '@polymer/iron-icons/maps-icons.js';
@@ -39,38 +40,35 @@ class EventDetail extends PolymerElement {
     <iron-ajax 
         id="detailsRequest" 
         method="GET"
-        url="https://app.ticketmaster.com/discovery/v2/events/G5vVZfUnIKxw8.json?apikey=zLZ9MOeps4OGQhuhAHYPXPtKCVtsO5gX"
+        url=""
         handle-as="json"
+        on-response="_handleDatasEventResponse"
         last-response="{{details}}"></iron-ajax>
-
-    <paper-card image="https://s1.ticketm.net/dam/a/443/c27ce107-a884-4ebe-be08-2d192a775443_635551_TABLET_LANDSCAPE_16_9.jpg">
+<a href="/">
+    <div class="well">
+<iron-icon icon="hardware:keyboard-arrow-left"></iron-icon> <p class="paragraphe paragraphe-small"> Return to search results</p>
+    </div></a>
+    <paper-card image="[[img]]">
       <div class="card-content">
-        <div class="cafe-header">Cafe Basilico
-          <div class="cafe-location cafe-light">
-            <iron-icon icon="communication:location-on"></iron-icon>
-{{details.name}}
-            <span>250ft</span>
+        <div class="cafe-header">
+          <h3>[[details.name]]</h3>
+          <div class="content-elem">
+            <iron-icon icon="icons:folder-open"></iron-icon><span>[[classification]] - [[genre]]</span>
+</div>
+<div class="content-elem">
+            <iron-icon icon="icons:event"></iron-icon><span>[[details.dates.start.localDate]] at [[details.dates.start.localTime]]</span>
           </div>
         </div>
-        <p>$・Italian, Cafe</p>
-        <p class="cafe-light">Small plates, salads &amp; sandwiches in an intimate setting.</p>
       </div>
       <div class="card-actions">
-        <div class="horizontal justified">
-          <paper-icon-button icon="icons:event"></paper-icon-button>
-          <paper-button>5:30PM</paper-button>
-          <paper-button>7:30PM</paper-button>
-          <paper-button>9:00PM</paper-button>
-          <paper-button class="cafe-reserve">Reserve</paper-button>
+        <div>
+            Prices between [[minPrice]] and [[maxPrice]] [[currency]]
         </div>
       </div>
     </paper-card>
-    <!--  <div class="card">
-        <div class="circle">1</div>
-        <h1>Detail [[routeData.item]]</h1>
-        <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-        <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-      </div>-->
+    <div class="btn-tickets">
+          <paper-button class="pink-button cafe-reserve"><a target="_blank" href="[[details.url]]"><iron-icon icon="maps:local-activity"></iron-icon> Get tickets</a></paper-button>
+    </div>
     `;
   }
     
@@ -80,6 +78,27 @@ class EventDetail extends PolymerElement {
     },
     routeData: {
       type: Object
+    },
+    details: {
+      type: Object
+    },
+    genre: {
+      type: String
+    },
+    classification: {
+      type: String
+    },
+    minPrice: {
+      type: String
+    },
+    maxPrice: {
+      type: String
+    },
+    currency: {
+      type: String
+    },
+    img: {
+        type: String
     }
     }}
     
@@ -93,13 +112,25 @@ class EventDetail extends PolymerElement {
         this.$.detailsRequest.generateRequest();
     }
     
+    
+    _handleDatasEventResponse(event) {
+        for(let i = 0; i < this.details.images.length; i++) {
+            if(this.details.images[i].ratio == "16_9") {
+                this.img = this.details.images[i].url;
+                break;
+            }
+        }
+        this.genre = this.details.classifications[0].genre.name;
+        this.classification = this.details.classifications[0].segment.name;
+        this.minPrice = this.details.priceRanges[0].min;
+        this.maxPrice = this.details.priceRanges[0].max;
+        this.currency = this.details.priceRanges[0].currency;
+    }
+    
 }
 
 window.customElements.define('event-detail', EventDetail);
 /* 
-name
-link url
-image
 sales
 
 date heure
