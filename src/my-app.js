@@ -19,10 +19,8 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/iron-icon/iron-icon.js';
-import '@polymer/iron-icons/social-icons.js';
 import '@polymer/iron-selector/iron-selector.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
+//import '@polymer/paper-icon-button/paper-icon-button.js';
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
@@ -97,9 +95,11 @@ class MyApp extends PolymerElement {
           </app-header>
 
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-              <!-- list view of  in a category -->
+              <!-- search events -->
+              <event-search name="search" route="[[subroute]]"></event-search>
+              <!-- list view of events -->
               <event-list name="list" route="[[subroute]]"></event-list>
-              <!-- detail view of one item -->
+              <!-- detail view of an event -->
               <event-detail name="detail" route="[[subroute]]"></event-detail>
           </iron-pages>
         </app-header-layout>
@@ -131,8 +131,8 @@ class MyApp extends PolymerElement {
      // If no page was found in the route data, page will be an empty string.
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
     if (!page) {
-      this.page = 'list';
-    } else if (['list', 'detail'].indexOf(page) !== -1) {
+      this.page = 'search';
+    } else if (['search', 'list', 'detail'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'view404';
@@ -145,6 +145,9 @@ class MyApp extends PolymerElement {
     // Note: `polymer build` doesn't like string concatenation in the import
     // statement, so break it up.
     switch (page) {
+      case 'search':
+        import('./event-search.js');
+        break;
       case 'list':
         import('./event-list.js');
         break;

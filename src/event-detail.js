@@ -6,14 +6,14 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-button/paper-button.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/iron-icon/iron-icon.js';
-import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/iron-icons/communication-icons.js';
-import '@polymer/iron-icons/hardware-icons.js';
-import '@polymer/iron-icons/maps-icons.js';
-import '@polymer/iron-icons/social-icons.js';
-import '@polymer/iron-icons/notification-icons.js';
+//import '@polymer/paper-icon-button/paper-icon-button.js';
+//import '@polymer/iron-icon/iron-icon.js';
+//import '@polymer/iron-icons/iron-icons.js';
+//import '@polymer/iron-icons/communication-icons.js';
+//import '@polymer/iron-icons/hardware-icons.js';
+//import '@polymer/iron-icons/maps-icons.js';
+//import '@polymer/iron-icons/social-icons.js';
+//import '@polymer/iron-icons/notification-icons.js';
 import '@polymer/iron-ajax/iron-ajax.js';
 import './shared-styles.js';
 
@@ -44,10 +44,10 @@ class EventDetail extends PolymerElement {
         handle-as="json"
         on-response="_handleDatasEventResponse"
         last-response="{{details}}"></iron-ajax>
-<a href="/">
-    <div class="well">
+
+    <button class="well" on-click="_back">
 <iron-icon icon="hardware:keyboard-arrow-left"></iron-icon> <p class="paragraphe paragraphe-small"> Return to search results</p>
-    </div></a>
+    </button>
     <paper-card image="[[img]]">
       <div class="card-content">
         <div class="cafe-header">
@@ -125,6 +125,10 @@ class EventDetail extends PolymerElement {
         this.minPrice = this.details.priceRanges[0].min;
         this.maxPrice = this.details.priceRanges[0].max;
         this.currency = this.details.priceRanges[0].currency;
+    }
+    
+    _back() {
+        window.history.back();
     }
     
 }

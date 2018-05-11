@@ -75,12 +75,12 @@ cursor: pointer;
 }
 
 .btn-tickets {
-margin-top: 25px;
 }
 
-.btn-tickets paper-button {
+paper-button {
 width: 100%;
 margin: 0;
+margin-top: 20px;
 }
 
 .btn-tickets paper-button iron-icon {
@@ -116,6 +116,32 @@ display: inline-block;
 paper-button.pink-button {
    background-color: #d0006f;
 color: #fff;
+}
+.list-elem-container {
+}
+.list-elem {
+color: #000;
+background: #fff;
+border-bottom: 1px solid #ddd;
+border-left: 1px solid #ddd;
+border-right: 1px solid #ddd;
+padding: 15px 15px;
+}
+
+.list-elem-container:first-of-type .list-elem {
+    border-top: 1px solid #ddd;
+}
+
+.list-elem span {
+width: 100%;
+    display: block;
+}
+
+.infos{
+color: #808080;
+line-height: 1.4;
+font-size: 0.9em;
+margin-top: 2px;
 }
     </style>
   </template>
