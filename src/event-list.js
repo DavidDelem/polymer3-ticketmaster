@@ -29,8 +29,7 @@ class EventList extends PolymerElement {
       </app-route>
 
     <iron-ajax auto url="ticketmaster-api.json" handle-as="json"
-        last-response="{{api}}"
-        on-response="_handleDatasApiResponse"></iron-ajax>
+        last-response="{{api}}" on_response="_setPagination"></iron-ajax>
 
     <iron-ajax 
         id="listRequest" 
@@ -39,10 +38,16 @@ class EventList extends PolymerElement {
         handle-as="json"
         on-response="_handleDatasListResponse"
         last-response="{{events}}"></iron-ajax>
-<div class="search">
- <paper-input label="Keywords" value="{{keyword}}"></paper-input>
-    <paper-button class="pink-button" on-click="_search">Search events</paper-button>
-</div>
+    <div class="search">
+     <paper-input label="Keywords" value="{{keyword}}"></paper-input>
+        <paper-button class="half-button-left blue-button" on-click="_reset">Reset</paper-button>
+        <paper-button class="half-button-right pink-button" on-click="_search">Search</paper-button>
+    </div>
+    <div class="info-search">
+        <template is="dom-if" if="{{_isPagesInfosAvailables(events.page)}}">
+            <span>[[events.page.totalElements]] results, page [[_currentPage(events.page.number)]] of [[events.page.totalPages]]</span>
+        </template>
+    </div>
     <iron-list items="[[events._embedded.events]]">
         <template>
 
@@ -58,6 +63,17 @@ class EventList extends PolymerElement {
     </a>
         </template>
     </iron-list>
+    <div class="info-search">
+        <template is="dom-if" if="{{_isPagesInfosAvailables(events.page)}}">
+            <span>[[events.page.totalElements]] results, page [[_currentPage(events.page.number)]] of [[events.page.totalPages]]</span>
+        </template>
+    </div>
+    <div class="btn-pages">
+        <template is="dom-if" if="{{_isPagesInfosAvailables(events.page)}}">
+            <paper-button class="half-button-left pink-button" on-click="_previous">Previous</paper-button>
+            <paper-button class="half-button-right pink-button" on-click="_next">next</paper-button>
+        </template>
+    </div>
     `;
   }
     
@@ -79,17 +95,43 @@ class EventList extends PolymerElement {
         super.ready();
     }
     
-    _handleDatasListResponse(event) {
-        
+    _previous() {
+        if(this.events.page.number > 0) {
+            this.$.listRequest.url = this.api.baseUrl + this.api.chemins.list + ".json?apikey=" + this.api.key + "&page=" + (this.events.page.number - 1) + "&keyword=" + this.keyword;
+            this.$.listRequest.generateRequest();
+        }
+    }
+    
+    _next() {
+        if(this.events.page.number < this.events.page.totalPages - 1) {
+            this.$.listRequest.url = this.api.baseUrl + this.api.chemins.list + ".json?apikey=" + this.api.key + "&page=" + (this.events.page.number + 1) + "&keyword=" + this.keyword;
+            this.$.listRequest.generateRequest();
+        }
+    }
+    
+    _reset() {
+        this.keyword = "";
+        this.events = {};
     }
     
     _search() {
         if(this.api != undefined) {
-
             this.$.listRequest.url = this.api.baseUrl + this.api.chemins.list + ".json?apikey=" + this.api.key + "&keyword=" + this.keyword;
             this.$.listRequest.generateRequest();
         }
     }
+    
+    _isPagesInfosAvailables(page) {
+        if(page) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    _currentPage(page) {
+        return page + 1;
+    }
+    
 }
 
 window.customElements.define('event-list', EventList);

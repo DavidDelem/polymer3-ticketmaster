@@ -131,8 +131,8 @@ class MyApp extends PolymerElement {
      // If no page was found in the route data, page will be an empty string.
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
     if (!page) {
-      this.page = 'search';
-    } else if (['search', 'list', 'detail'].indexOf(page) !== -1) {
+      this.page = 'list';
+    } else if (['list', 'detail'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'view404';
@@ -145,9 +145,6 @@ class MyApp extends PolymerElement {
     // Note: `polymer build` doesn't like string concatenation in the import
     // statement, so break it up.
     switch (page) {
-      case 'search':
-        import('./event-search.js');
-        break;
       case 'list':
         import('./event-list.js');
         break;

@@ -82,11 +82,11 @@ cursor: pointer;
 paper-button {
 width: 100%;
 margin: 0;
-margin-top: 20px;
 }
 
 paper-card {
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .btn-tickets paper-button iron-icon {
@@ -119,19 +119,33 @@ padding-right: 5px;
 display: inline-block;
 }
 
+.half-button-left {
+    width: calc(50% - 10px);
+    margin-right: 10px;
+}
+
+.half-button-right {
+    width: calc(50% - 10px);
+    margign-left: 10px;
+}
+
 paper-button.pink-button {
    background-color: #d0006f;
 color: #fff;
 }
-.list-elem-container {
+
+paper-button.blue-button {
+background-color: #009cde;
+color: #fff;
 }
+
 .list-elem {
-color: #000;
-background: #fff;
-border-bottom: 1px solid #ddd;
-border-left: 1px solid #ddd;
-border-right: 1px solid #ddd;
-padding: 15px 15px;
+    color: #000;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 15px 15px;
 }
 
 .list-elem-container:first-of-type .list-elem {
@@ -143,15 +157,23 @@ width: 100%;
     display: block;
 }
 
-.infos{
+.infos {
 color: #808080;
 line-height: 1.4;
 font-size: 0.9em;
 margin-top: 2px;
 }
 
-.search {
-margin-bottom: 25px;
+paper-input {
+    margin-bottom: 10px;
+}
+
+.info-search {
+text-align: center;
+color: #848484;
+margin-top: 15px;
+margin-bottom: 15px;
+font-size: 0.9em;
 }
     </style>
   </template>
