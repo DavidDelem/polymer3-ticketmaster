@@ -20,6 +20,13 @@ import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/communication-icons.js';
+import '@polymer/iron-icons/hardware-icons.js';
+import '@polymer/iron-icons/maps-icons.js';
+import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-icons/notification-icons.js';
 //import '@polymer/paper-icon-button/paper-icon-button.js';
 
 // Gesture events like tap and track generated from touch will not be
@@ -73,6 +80,13 @@ class MyApp extends PolymerElement {
 
         #main-icon {
             margin-right: 8px;
+        }
+
+        @media (min-width:1025px) {
+            iron-pages {
+                max-width: 34%;
+                margin-left: 33%;
+            }
         }
       </style>
 

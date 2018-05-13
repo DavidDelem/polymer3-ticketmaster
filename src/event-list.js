@@ -55,7 +55,7 @@ class EventList extends PolymerElement {
             <div class="list-elem-container">
                       <div class="list-elem">
                         <span class="span-elem">[[item.name]]</span>
-                        <span class="span-elem infos">[[item.dates.start.localDate]]<br>[[item._embedded.venues.0.city.name]], [[item._embedded.venues.0.state.name]],
+                        <span class="span-elem infos">[[item.dates.start.localDate]]<br>[[item._embedded.venues.0.city.name]]  [[item._embedded.venues.0.state.name]] 
                         [[item._embedded.venues.0.country.countryCode]]</span>
                       </div>
             </div>

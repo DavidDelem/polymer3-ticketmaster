@@ -152,6 +152,10 @@ color: #fff;
     border-top: 1px solid #ddd;
 }
 
+.list-elem-container:last-of-type .list-elem {
+    border-top: 1px solid #ddd;
+}
+
 .list-elem span {
 width: 100%;
     display: block;

@@ -59,8 +59,12 @@ class EventDetail extends PolymerElement {
             <template is="dom-if" if="{{_typeEventExist(details.classifications)}}">
                 <iron-icon icon="icons:folder-open"></iron-icon><span>[[details.classifications.0.segment.name]] - [[details.classifications.0.genre.name]]</span>
             </template>
-</div>
-<div class="content-elem">
+        </div>
+        <div class="content-elem">
+            <iron-icon icon="maps:place"></iron-icon><span>[[details._embedded.venues.0.city.name]] [[details._embedded.venues.0.state.name]]
+                        [[details._embedded.venues.0.country.countryCode]]</span>
+        </div>
+        <div class="content-elem">
             <iron-icon icon="icons:event"></iron-icon><span>[[details.dates.start.localDate]] at [[details.dates.start.localTime]]</span>
           </div>
         </div>
