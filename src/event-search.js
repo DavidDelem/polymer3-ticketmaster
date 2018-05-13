@@ -20,8 +20,15 @@ class EventSearch extends PolymerElement {
           padding: 10px;
         }
       </style>
+
+    <app-location route="{{route}}" query-params="{{queryParams}}">
+      </app-location>
+
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}">
+      </app-route>
+
     <paper-input label="Keywords" value="{{keywords}}"></paper-input>
-    <paper-button class="pink-button"><a href="/list?keywords={{keywords}}">Search events</a></paper-button>
+    <paper-button class="pink-button" on-click="_search"><a href="/list?keywords=[[keywords]]">Search events</a></paper-button>
     `;
   }
     
@@ -32,6 +39,9 @@ class EventSearch extends PolymerElement {
     routeData: {
       type: Object
     },
+    queryParams: {
+        type: Object
+    },
     keywords: {
       type: String
     }
@@ -39,6 +49,12 @@ class EventSearch extends PolymerElement {
     
     ready() {
         super.ready();
+    }
+    
+    _search() {
+        this.queryParams = { keywords: this.keywords };
+        console.log(this.keywords);
+        this.set('route.path', '/list?keyword=' + this.keywords);
     }
 }
 

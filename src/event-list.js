@@ -39,12 +39,10 @@ class EventList extends PolymerElement {
         handle-as="json"
         on-response="_handleDatasListResponse"
         last-response="{{events}}"></iron-ajax>
-
-    <a href="/">
-        <div class="well">
-    <iron-icon icon="hardware:keyboard-arrow-left"></iron-icon> <p class="paragraphe paragraphe-small"> Return to search</p>
-        </div></a>
-
+<div class="search">
+ <paper-input label="Keywords" value="{{keyword}}"></paper-input>
+    <paper-button class="pink-button" on-click="_search">Search events</paper-button>
+</div>
     <iron-list items="[[events._embedded.events]]">
         <template>
 
@@ -63,7 +61,7 @@ class EventList extends PolymerElement {
     `;
   }
     
-        static get properties() { return {
+    static get properties() { return {
     api: {
       type: Object
     },
@@ -73,21 +71,24 @@ class EventList extends PolymerElement {
     events: {
       type: Object
     },
+    keyword: {
+      type: String
+    }
     }}
     ready() {
         super.ready();
-        console.log(this.queryParams);
-    }
-    
-    _handleDatasApiResponse(event) {
-        console.log("toto");
-        this.$.listRequest.url = this.api.baseUrl + this.api.chemins.list + ".json?apikey=" + this.api.key + "&keyword=" + this.queryParams.keywords;
-        this.$.listRequest.generateRequest();
-            console.log("toto");
     }
     
     _handleDatasListResponse(event) {
-            console.log(this.events);
+        
+    }
+    
+    _search() {
+        if(this.api != undefined) {
+
+            this.$.listRequest.url = this.api.baseUrl + this.api.chemins.list + ".json?apikey=" + this.api.key + "&keyword=" + this.keyword;
+            this.$.listRequest.generateRequest();
+        }
     }
 }
 

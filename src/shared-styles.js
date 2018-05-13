@@ -42,8 +42,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
       }
 
       .paragraphe {
-        margin-top: 8px;
-margin-bottom: 8px;
+
       }
 
       .paragraphe-small {
@@ -53,9 +52,12 @@ margin-bottom: 8px;
         .well {
             background: #e0e0e0;
             border-radius: 5px;
-            padding: 0 15px;
+            padding: 0px 15px;
             margin-bottom: 20px;
             color: #848484;
+border: none;
+    text-align: left;
+    width: 100%;
 cursor: pointer;
     transition: all .3s ease-out;
         }
@@ -81,6 +83,10 @@ paper-button {
 width: 100%;
 margin: 0;
 margin-top: 20px;
+}
+
+paper-card {
+    width: 100%;
 }
 
 .btn-tickets paper-button iron-icon {
@@ -142,6 +148,10 @@ color: #808080;
 line-height: 1.4;
 font-size: 0.9em;
 margin-top: 2px;
+}
+
+.search {
+margin-bottom: 25px;
 }
     </style>
   </template>

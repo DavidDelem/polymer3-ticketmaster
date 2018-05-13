@@ -76,7 +76,7 @@ class MyApp extends PolymerElement {
         }
       </style>
 
-      <app-location route="{{route}}">
+      <app-location route="{{route}}" query-params="{{queryParams}}">
       </app-location>
 
       <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}">

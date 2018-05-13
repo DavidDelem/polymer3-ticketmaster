@@ -7,13 +7,13 @@ import '@polymer/app-route/app-route.js';
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-button/paper-button.js';
 //import '@polymer/paper-icon-button/paper-icon-button.js';
-//import '@polymer/iron-icon/iron-icon.js';
-//import '@polymer/iron-icons/iron-icons.js';
-//import '@polymer/iron-icons/communication-icons.js';
-//import '@polymer/iron-icons/hardware-icons.js';
-//import '@polymer/iron-icons/maps-icons.js';
-//import '@polymer/iron-icons/social-icons.js';
-//import '@polymer/iron-icons/notification-icons.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/communication-icons.js';
+import '@polymer/iron-icons/hardware-icons.js';
+import '@polymer/iron-icons/maps-icons.js';
+import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-icons/notification-icons.js';
 import '@polymer/iron-ajax/iron-ajax.js';
 import './shared-styles.js';
 
@@ -28,9 +28,12 @@ class EventDetail extends PolymerElement {
         }
       </style>
 
+      <app-location route="{{route}}" query-params="{{queryParams}}" on-route-changed="test">
+      </app-location>
+
       <app-route
-        route="[[route]]"
-        pattern="/:item"
+        route="{{route}}"
+        pattern="/:detail/:item"
         data="{{routeData}}"></app-route>
 
     <iron-ajax auto url="ticketmaster-api.json" handle-as="json"
@@ -50,10 +53,12 @@ class EventDetail extends PolymerElement {
     </button>
     <paper-card image="[[img]]">
       <div class="card-content">
-        <div class="cafe-header">
+        <div>
           <h3>[[details.name]]</h3>
           <div class="content-elem">
-            <iron-icon icon="icons:folder-open"></iron-icon><span>[[classification]] - [[genre]]</span>
+            <template is="dom-if" if="{{_typeEventExist(details.classifications)}}">
+                <iron-icon icon="icons:folder-open"></iron-icon><span>[[details.classifications.0.segment.name]] - [[details.classifications.0.genre.name]]</span>
+            </template>
 </div>
 <div class="content-elem">
             <iron-icon icon="icons:event"></iron-icon><span>[[details.dates.start.localDate]] at [[details.dates.start.localTime]]</span>
@@ -62,7 +67,12 @@ class EventDetail extends PolymerElement {
       </div>
       <div class="card-actions">
         <div>
-            Prices between [[minPrice]] and [[maxPrice]] [[currency]]
+            <template is="dom-if" if="{{_priceRangeExist(details.priceRanges)}}">
+                Prices between [[details.priceRanges.0.min]] and [[details.priceRanges.0.max]] [[details.priceRanges.0.currency]]
+            </template>
+            <template is="dom-if" if="{{!_priceRangeExist(details.priceRanges)}}">
+                Price informations not availables
+            </template>
         </div>
       </div>
     </paper-card>
@@ -74,6 +84,9 @@ class EventDetail extends PolymerElement {
     
     static get properties() { return {
     api: {
+      type: Object
+    },
+    route: {
       type: Object
     },
     routeData: {
@@ -107,6 +120,7 @@ class EventDetail extends PolymerElement {
     }
     
     _handleDatasApiResponse(event) {
+        console.log(this.route);
         this.$.detailsRequest.url = this.api.baseUrl + this.api.chemins.detail;
         this.$.detailsRequest.url += this.routeData.item + ".json?apikey=" + this.api.key;
         this.$.detailsRequest.generateRequest();
@@ -120,13 +134,39 @@ class EventDetail extends PolymerElement {
                 break;
             }
         }
-        this.genre = this.details.classifications[0].genre.name;
-        this.classification = this.details.classifications[0].segment.name;
-        this.minPrice = this.details.priceRanges[0].min;
-        this.maxPrice = this.details.priceRanges[0].max;
-        this.currency = this.details.priceRanges[0].currency;
     }
-    
+    _typeEventExist(classifications) {
+        if(classifications
+           && classifications[0].genre
+           && classifications[0].segment) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    _priceRangeExist(priceRanges) {
+        if(priceRanges
+           && priceRanges[0].min
+           && priceRanges[0].max
+           && priceRanges[0].currency) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    test() {
+        if(this.api && this.route.path.length > 1) {
+            console.log("changed");
+            console.log(this.route.path.substring(1));
+            this.$.detailsRequest.url = this.api.baseUrl + this.api.chemins.detail;
+            this.$.detailsRequest.url += this.route.path.substring(1) + ".json?apikey=" + this.api.key;
+            this.$.detailsRequest.generateRequest();
+        } else {
+            console.log("deleted");
+            this.details = {};
+            this.img = "";
+        }
+    }
     _back() {
         window.history.back();
     }
@@ -134,10 +174,3 @@ class EventDetail extends PolymerElement {
 }
 
 window.customElements.define('event-detail', EventDetail);
-/* 
-sales
-
-date heure
-pricerange
-classification -> segment genre
-*/
