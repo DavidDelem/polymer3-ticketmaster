@@ -82,6 +82,7 @@ cursor: pointer;
 paper-button {
 width: 100%;
 margin: 0;
+min-height: 51px;
 }
 
 paper-card {
@@ -129,6 +130,10 @@ display: inline-block;
     margign-left: 10px;
 }
 
+.button-float-right {
+    float: right;
+}
+
 paper-button.pink-button {
    background-color: #d0006f;
 color: #fff;
@@ -137,6 +142,10 @@ color: #fff;
 paper-button.blue-button {
 background-color: #009cde;
 color: #fff;
+}
+
+paper-button[disabled] {
+opacity: 0.5;
 }
 
 .list-elem {
@@ -178,6 +187,15 @@ color: #848484;
 margin-top: 15px;
 margin-bottom: 15px;
 font-size: 0.9em;
+}
+
+.spinner-container {
+width: 100%;
+text-align: center;
+}
+
+paper-spinner-lite {
+ --paper-spinner-color: #fff;
 }
     </style>
   </template>
