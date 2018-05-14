@@ -124,10 +124,11 @@ class EventDetail extends PolymerElement {
     
     _handleDatasEventResponse(event) {
         this.search = false;
+        var maxWidth = 0;
         for(let i = 0; i < this.details.images.length; i++) {
-            if(this.details.images[i].ratio == "16_9") {
+            if(this.details.images[i].width > maxWidth) {
                 this.img = this.details.images[i].url;
-                break;
+                maxWidth = this.details.images[i].width;
             }
         }
     }
