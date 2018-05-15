@@ -1,0 +1,8 @@
+{
+    "key": "XXX",
+    "baseUrl": "https://app.ticketmaster.com",
+    "chemins": {
+        "list": "/discovery/v2/events",
+        "detail": "/discovery/v2/events/"
+    }
+}
